@@ -1,7 +1,7 @@
 import React from 'react';
 import './Reaction.css'
 
-const Reaction = ({ distance, reactions }) => {
+const Reaction = ({ distance, reactions, reactionType }) => {
 
     // TODO: Refactor
     const assignReaction = (distance) => {
@@ -15,7 +15,7 @@ const Reaction = ({ distance, reactions }) => {
             return reactions[0];
         }
     };
-    const reaction = <img src={assignReaction(distance)}/>;
+    const reaction = <img src={assignReaction(distance)} alt={reactionType}/>;
 
 
     return (

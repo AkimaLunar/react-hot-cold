@@ -1,0 +1,35 @@
+input,
+button {
+  display: block;
+  width: 100%;
+}
+
+input[type=number] {
+
+  height: initial;
+  width: 100%;
+  padding: 6px 10px;
+  background-color: #e6e9f0;
+  border: 2px solid white;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 6rem;
+  color: #8609b7;
+}
+
+input[type=number]:focus {
+  border: 2px solid #8609b7;
+}
+
+label {
+  margin-top: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8609b7;
+  text-align: left;
+}
+
+p.guess__helper {
+  color: #8d8f96;
+  font-style: italic;
+}
