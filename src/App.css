@@ -7,3 +7,7 @@ h1.title {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.temp__app-center {
+  text-align: center;
+}

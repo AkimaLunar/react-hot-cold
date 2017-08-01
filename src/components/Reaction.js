@@ -1,10 +1,10 @@
 import React from 'react';
 import './Reaction.css'
 
-const Reaction = ({ number, guess, reactions }) => {
-    const _distance = (Math.abs(number-guess));
+const Reaction = ({ distance, reactions }) => {
+
     // TODO: Refactor
-    const assignReaction = (distance)=> {
+    const assignReaction = (distance) => {
         if (distance<25) {
             return reactions[3];
         } else if (distance<50) {
@@ -15,7 +15,7 @@ const Reaction = ({ number, guess, reactions }) => {
             return reactions[0];
         }
     };
-    const reaction = <img src={assignReaction(_distance)}/>;
+    const reaction = <img src={assignReaction(distance)}/>;
 
 
     return (
