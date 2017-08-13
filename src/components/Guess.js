@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Guess.css'
 
-export default class Guess extends Component {
+class Guess extends Component {
   state = {
     value: null
   };
@@ -22,3 +22,6 @@ export default class Guess extends Component {
     )
   }
 }
+
+Guess.displayName = 'Guess';
+export default Guess;
