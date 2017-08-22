@@ -1,26 +1,46 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import App from '../App';
 import Guess from './Guess';
 import Final from './Final';
 import Reaction from './Guess';
 
-import { setUsername, newGame, saveGame, addGuess } from '../store/actions'
+import { setUsername, newGame, saveGame, addGuess } from '../store/actions';
 
 export const CurrentGame = connect(
-    state =>
-        ({  
-            username: username,
-            min: state.min,
-            max: state.max,
-            game: state.games[state.games.length-1],
-            currentDistance: Math.abs(number-guess);,
-            better: false,
-            winner: false,
-        }),
-    dispatch =>
-        ({
-            onGuess(id, num) {
-                dispatch(addGuess(id, num))
-            }
-        })
-)(App)
+    state => ({
+        username: state.username,
+        min: state.min,
+        max: state.max,
+        game: state.games.filter(g => g.active === true)[0],
+        winner: state.winner
+    }),
+    dispatch => ({
+        onInit(number) {
+            dispatch(newGame(number));
+        }
+    })
+)(App);
+
+export const GuessContainer = connect(
+    state => ({
+        min: state.min,
+        max: state.max,
+        game: state.games.filter(g => g.active === true)[0]
+    }),
+    dispatch => ({
+        onGuess(id, number, guesses, guess) {
+            dispatch(addGuess(id, number, guesses, guess));
+        }
+    })
+)(Guess);
+
+export const FinalContainer = connect(
+    state => ({
+        game: state.games.filter(g => g.active === true)[0]
+    }),
+    dispatch => ({
+        onReset(id, number, guess) {
+            dispatch(saveGame(id));
+        }
+    })
+)(Final);
