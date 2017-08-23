@@ -22,12 +22,12 @@ export const game = (state = {}, action) => {
       };
     case C.ADD_GUESS:
       return state.id !== action.id
-        ? state
+       ? state
         : {
-            ...state,
+            ...state, 
             guesses: [...state.guesses, action.guess],
             winner: action.winner
-          };
+          }
     case C.SAVE_GAME:
       return state.id !== action.id
         ? state
@@ -45,6 +45,8 @@ export const games = (state = [], action) => {
   switch (action.type) {
     case C.NEW_GAME:
       return [...state, game({}, action)];
+    case C.ADD_GUESS:
+      return state.map(g => game(g, action));
     case C.SAVE_GAME:
       return state.map(g => game(g, action));
     default:
