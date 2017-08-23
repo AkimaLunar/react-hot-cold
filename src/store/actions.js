@@ -38,5 +38,5 @@ export const addGuess = (id, number, guesses, guess) => ({
   id,
   guess,
   //guesses: [...guesses, guess],
-  winner: number === parseInt(guess)
+  winner: number === guess
 });

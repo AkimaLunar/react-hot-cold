@@ -1,9 +1,10 @@
 import React from 'react';
 import './Reaction.css'
 
-const Reaction = ({ distance, reactions, reactionType }) => {
-
+const Reaction = ({ distance, max, reactions, reactionType }) => {
     // TODO: Refactor
+    // const reactionsLength = [ ...Array(reactions.length).keys() ];
+    // const step = max / reactions.length;
     const assignReaction = (distance) => {
         if (distance<25) {
             return reactions[3];

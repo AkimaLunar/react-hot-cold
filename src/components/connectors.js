@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 import App from '../App';
 import Guess from './Guess';
 import Final from './Final';
-import Reaction from './Guess';
 
-import { setUsername, newGame, saveGame, addGuess } from '../store/actions';
+import { newGame, saveGame, addGuess } from '../store/actions';
 
 export const CurrentGame = connect(
     state => {

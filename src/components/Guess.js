@@ -12,7 +12,7 @@ class Guess extends Component {
       this.props.game.id,
       this.props.game.number,
       this.props.game.guesses,
-      this.state.value
+      parseInt(this.state.value, 10)
     );
   };
 

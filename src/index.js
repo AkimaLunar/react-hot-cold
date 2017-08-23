@@ -5,7 +5,6 @@ import store from "./store";
 import { CurrentGame } from "./components/connectors";
 
 import "./index.css";
-import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
 window.React = React;

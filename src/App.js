@@ -24,12 +24,14 @@ class App extends Component {
 
     render() {
         if(!this.props.game) {
-            return <div>Loading...</div>
+            return <div>Wait a sec...</div>
+        } else {
+            
         }
         const { guesses, number } = this.props.game;
-        const _prevGuess = guesses.length - 2;
-        const _prevDistance = this.getDistance(number, guesses[_prevGuess]);
-        const _currentGuess = guesses.length - 1;
+        const _prevGuess = guesses[guesses.length - 2];
+        const _prevDistance = this.getDistance(number, _prevGuess);
+        const _currentGuess = guesses[guesses.length - 1];
         const _currentDistance = this.getDistance(number, _currentGuess);
         const _better = _prevDistance > _currentDistance;
 
@@ -41,6 +43,7 @@ class App extends Component {
                 coldReaction = (
                     <Reaction
                         distance={_currentDistance}
+                        max={this.props.max}
                         reactions={COLD_REACTIONS}
                         reactionType={'cold'}
                     />
@@ -50,6 +53,7 @@ class App extends Component {
                     <Reaction
                         distance={_currentDistance}
                         reactions={HOT_REACTIONS}
+                        max={this.props.max}
                         reactionType={'hot'}
                     />
                 );
