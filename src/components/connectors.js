@@ -7,13 +7,14 @@ import Reaction from './Guess';
 import { setUsername, newGame, saveGame, addGuess } from '../store/actions';
 
 export const CurrentGame = connect(
-    state => ({
-        username: state.username,
-        min: state.min,
-        max: state.max,
-        game: state.games.filter(g => g.active === true)[0],
-        winner: state.winner
-    }),
+    state => {
+        return {
+            username: state.username,
+            min: state.min,
+            max: state.max,
+            game: state.games.filter(g => g.active === true)[0]
+        }
+    },
     dispatch => ({
         onInit(number) {
             dispatch(newGame(number));

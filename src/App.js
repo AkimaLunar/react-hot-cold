@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Guess from './components/Guess';
 import Reaction from './components/Reaction';
-import Final from './components/Final';
+import { GuessContainer } from './components/connectors';
+import { FinalContainer } from './components/connectors';
 import './App.css';
 import { COLD_REACTIONS, HOT_REACTIONS } from './ReactionsData.js';
 
 class App extends Component {
     componentWillMount() {
-        console.log(this.props);
         if (!this.props.game) {
             this.props.onInit(this.props.max);
         }
@@ -24,6 +23,9 @@ class App extends Component {
     }
 
     render() {
+        if(!this.props.game) {
+            return <div>Loading...</div>
+        }
         const { guesses, number } = this.props.game;
         const _prevGuess = guesses.length - 2;
         const _prevDistance = this.getDistance(number, guesses[_prevGuess]);
@@ -68,7 +70,7 @@ class App extends Component {
                     </div>
 
                     <div className="four columns">
-                        {this.state.winner ? <Final /> : <Guess />}
+                        {this.props.game.winner ? <FinalContainer /> : <GuessContainer />}
                     </div>
                     <div className="four columns">
                         {hotReaction}

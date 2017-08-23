@@ -36,6 +36,7 @@ export const saveGame = (id, guesses) => ({
 export const addGuess = (id, number, guesses, guess) => ({
   type: C.ADD_GUESS,
   id,
-  guesses: [...guesses, guess],
-  winner: number === guess
+  guess,
+  //guesses: [...guesses, guess],
+  winner: number === parseInt(guess)
 });
