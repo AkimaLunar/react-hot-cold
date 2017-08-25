@@ -33,10 +33,9 @@ export const saveGame = (id) => ({
     timestamp: new Date().toString()
 });
 
-export const addGuess = (id, number, guesses, guess) => ({
+export const addGuess = (id, number, guess) => ({
     type: C.ADD_GUESS,
     id,
     guess,
-    //guesses: [...guesses, guess],
     winner: number === guess
 });

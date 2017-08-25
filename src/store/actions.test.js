@@ -16,25 +16,61 @@ describe('setUsername', () => {
         expect(action.username).toEqual(name);
     });
 });
+describe('setMin', () => {
+    it('Should return the action', () => {
+        const min = 0;
+        const action = setMin(min);
+        expect(action.type).toEqual('SET_MIN');
+        expect(action.min).toEqual(min);
+    });
+});
 
-// describe('addCard', () => {
-//     it('Should return the action', () => {
-//         const text = 'Card text';
-//         const listIndex = 10;
-//         const action = addCard(text, listIndex);
-//         expect(action.type).toEqual(ADD_CARD);
-//         expect(action.text).toEqual(text);
-//         expect(action.listIndex).toEqual(listIndex);
-//     });
-// });
+describe('setMax', () => {
+    it('Should return the action', () => {
+        const max = 100;
+        const action = setMax(max);
+        expect(action.type).toEqual('SET_MAX');
+        expect(action.max).toEqual(max);
+    });
+});
 
-// describe('fetchBoardSuccess', () => {
-//     it('Should return the action', () => {
-//         const board = {
-//             lists: []
-//         };
-//         const action = fetchBoardSuccess(board);
-//         expect(action.type).toEqual(FETCH_BOARD_SUCCESS);
-//         expect(action.board).toEqual(board);
-//     });
-// });
+describe('newGame', () => {
+    it('Should return the action', () => {
+        const max = 100;
+        const action = newGame(max);
+        expect(action.type).toEqual('NEW_GAME');
+        expect(action.active).toEqual(true);
+    });
+});
+
+describe('saveGame', () => {
+    it('Should return the action', () => {
+        const id = 'ABC';
+        const action = saveGame(id);
+        expect(action.type).toEqual('SAVE_GAME');
+        expect(action.id).toEqual(id);
+        expect(action.active).toEqual(false);
+    });
+});
+
+describe('addGuess', () => {
+    it('Should return the action with false', () => {
+        const id = 'ABC';
+        const guess = 43;
+        const number = 44;
+        const action = addGuess(id, number, guess);
+        expect(action.type).toEqual('ADD_GUESS');
+        expect(action.guess).toEqual(guess);
+        expect(action.winner).toEqual(false);
+    });
+
+    it('Should return the action with true', () => {
+        const id = 'ABC';
+        const guess = 44;
+        const number = 44;
+        const action = addGuess(id, number, guess);
+        expect(action.type).toEqual('ADD_GUESS');
+        expect(action.guess).toEqual(guess);
+        expect(action.winner).toEqual(true);
+    });
+});
