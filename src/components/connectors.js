@@ -39,7 +39,7 @@ export const FinalContainer = connect(
         game: state.games.filter(g => g.active === true)[0]
     }),
     dispatch => ({
-        onReset(id, number, guess) {
+        onReset(id, number) {
             dispatch(saveGame(id));
         }
     })

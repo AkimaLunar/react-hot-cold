@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "./Guess.css";
+import React, { Component } from 'react';
+import './Guess.css';
 
 class Guess extends Component {
   state = {
@@ -35,5 +35,5 @@ class Guess extends Component {
   }
 }
 
-Guess.displayName = "Guess";
+Guess.displayName = 'Guess';
 export default Guess;
