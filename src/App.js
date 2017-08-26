@@ -24,9 +24,7 @@ class App extends Component {
 
     render() {
         if(!this.props.game) {
-            return <div>Wait a sec...</div>
-        } else {
-            
+            return <div>Wait a sec...</div>;
         }
         const { guesses, number } = this.props.game;
         const _prevGuess = guesses[guesses.length - 2];

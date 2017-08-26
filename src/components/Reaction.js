@@ -1,10 +1,12 @@
 import React from 'react';
-import './Reaction.css'
+import './Reaction.css';
 
 const Reaction = ({ distance, max, reactions, reactionType }) => {
     // TODO: Refactor
-    // const reactionsLength = [ ...Array(reactions.length).keys() ];
+    // const reactionsIterable = [ ...Array(reactions.length).keys() ];
     // const step = max / reactions.length;
+
+    
     const assignReaction = (distance) => {
         if (distance<25) {
             return reactions[3];
@@ -21,10 +23,10 @@ const Reaction = ({ distance, max, reactions, reactionType }) => {
 
     return (
         <section className="reaction">
-             {reaction}
+            {reaction}
         </section>
-    )
-}
+    );
+};
 
 Reaction.displayName = 'Reaction';
 
