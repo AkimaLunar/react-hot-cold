@@ -20,7 +20,7 @@ describe('<Guess />', () => {
         const value = 44;
         wrapper.setState({ value: value });
         wrapper.simulate('submit');
-        expect(callback).toHaveBeenCalledWith(game.id, game.number, game.guesses, value);
+        expect(callback).toHaveBeenCalledWith(game.id, game.number, value);
     });
 
     it('handles user input', () => {

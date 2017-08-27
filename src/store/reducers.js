@@ -40,20 +40,20 @@ export const game = (state = {}, action) => {
         };
     case C.ADD_GUESS:
         return state.id !== action.id
-        ? state
-        : {
-            ...state, 
-            guesses: [...state.guesses, action.guess],
-            winner: action.winner
-        };
+            ? state
+            : {
+                ...state, 
+                guesses: [...state.guesses, action.guess],
+                winner: action.winner
+            };
     case C.SAVE_GAME:
         return state.id !== action.id
-        ? state
-        : {
-            ...state,
-            active: action.active,
-            timestamp: action.timestamp
-        };
+            ? state
+            : {
+                ...state,
+                active: action.active,
+                timestamp: action.timestamp
+            };
     default:
         return state;
     }

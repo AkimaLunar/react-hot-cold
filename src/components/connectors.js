@@ -12,7 +12,7 @@ export const CurrentGame = connect(
             min: state.min,
             max: state.max,
             game: state.games.filter(g => g.active === true)[0]
-        }
+        };
     },
     dispatch => ({
         onInit(number) {
@@ -28,8 +28,8 @@ export const GuessContainer = connect(
         game: state.games.filter(g => g.active === true)[0]
     }),
     dispatch => ({
-        onGuess(id, number, guesses, guess) {
-            dispatch(addGuess(id, number, guesses, guess));
+        onGuess(id, number, guess) {
+            dispatch(addGuess(id, number, guess));
         }
     })
 )(Guess);
@@ -39,7 +39,7 @@ export const FinalContainer = connect(
         game: state.games.filter(g => g.active === true)[0]
     }),
     dispatch => ({
-        onReset(id, number) {
+        onReset(id) {
             dispatch(saveGame(id));
         }
     })

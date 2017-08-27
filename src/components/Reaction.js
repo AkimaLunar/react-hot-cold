@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Reaction.css';
 
 const Reaction = ({ distance, max, reactions, reactionType }) => {
@@ -28,6 +30,12 @@ const Reaction = ({ distance, max, reactions, reactionType }) => {
     );
 };
 
+Reaction.PropTypes = {
+    distance: PropTypes.number,
+    max: PropTypes.number,
+    reactions: PropTypes.array,
+    reactionType: PropTypes.oneOf['hot', 'cold']
+};
 Reaction.displayName = 'Reaction';
 
 export default Reaction;
