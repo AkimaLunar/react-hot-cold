@@ -1,9 +1,14 @@
 import React from 'react';
-import './Reaction.css'
+import PropTypes from 'prop-types';
 
-const Reaction = ({ distance, reactions, reactionType }) => {
+import './Reaction.css';
 
+const Reaction = ({ distance, max, reactions, reactionType }) => {
     // TODO: Refactor
+    // const reactionsIterable = [ ...Array(reactions.length).keys() ];
+    // const step = max / reactions.length;
+
+    
     const assignReaction = (distance) => {
         if (distance<25) {
             return reactions[3];
@@ -20,11 +25,17 @@ const Reaction = ({ distance, reactions, reactionType }) => {
 
     return (
         <section className="reaction">
-             {reaction}
+            {reaction}
         </section>
-    )
-}
+    );
+};
 
+Reaction.PropTypes = {
+    distance: PropTypes.number,
+    max: PropTypes.number,
+    reactions: PropTypes.array,
+    reactionType: PropTypes.oneOf['hot', 'cold']
+};
 Reaction.displayName = 'Reaction';
 
 export default Reaction;
