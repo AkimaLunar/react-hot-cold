@@ -22,7 +22,7 @@ export const newGame = max => ({
     active: true,
     guesses: [],
     number: Math.floor(Math.random() * max),
-    timestamp: new Date().toString(),
+    timestamp: new Date(),
     winner: false
 });
 
@@ -30,7 +30,7 @@ export const saveGame = (id) => ({
     type: C.SAVE_GAME,
     id,
     active: false,
-    timestamp: new Date().toString()
+    timestamp: new Date()
 });
 
 export const addGuess = (id, number, guess) => ({

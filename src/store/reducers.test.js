@@ -21,7 +21,7 @@ import initialState from './initialState';
 
 describe('Username reducer', () => {
     it('Should set username', () => {
-        let state = 'test start';
+        let state = 'test-start';
         state = username(state, setUsername('test-mid'));
         state = username(state, setUsername('test-result'));
         expect(state).toEqual('test-result');
@@ -46,11 +46,26 @@ describe('Max reducer', () => {
 });
 
 describe('Games reducer', () => {
-    it('Should create a new game', () => {
+    it('Should create a new game (empty)', () => {
         let state = [];
         const { max } = initialState;
         state = games(state, newGame(max));
         expect(state).toHaveLength(1);
+    });
+
+    it('Should create a new game ', () => {
+        const game = {
+            id: '788b4d96-2245-4bac-a177-c0b80011975e',
+            active: false,
+            guesses: [],
+            number: 82,
+            winner: false,
+            timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
+        };
+        let state = [game];
+        const { max } = initialState;
+        state = games(state, newGame(max));
+        expect(state).toHaveLength(2);
     });
 });
 
@@ -59,12 +74,20 @@ describe('Game reducer', () => {
         let state = { };
         const { max } = initialState;
         state = game(state, newGame(max));
-        expect(state).toHaveProperty('id');
-        expect(state).toHaveProperty('active',true);
-        expect(state).toHaveProperty('guesses', []);
-        expect(state).toHaveProperty('number');
-        expect(state).toHaveProperty('timestamp');
-        expect(state).toHaveProperty('winner', false);
+        const expectedState = {
+            id: state.id,
+            active: true,
+            guesses: [],
+            number: state.number,
+            winner: false,
+            timestamp: state.timestamp
+        };
+        expect(state).toMatchObject(expectedState);
+        expect(state.active).toBe(true);
+        expect(state.guesses).toEqual([]);
+        expect(state.number).toBeLessThanOrEqual(max);
+        expect(state.winner).toBe(false);
+        expect(state.timestamp).toBeInstanceOf(Date);
     });
 
     it('Should save a game', () => {
@@ -74,15 +97,22 @@ describe('Game reducer', () => {
             guesses: [],
             number: 82,
             winner: false,
-            timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
+            timestamp: '2017-08-28T01:43:21.059Z'
         };
         state = game(state, saveGame('788b4d96-2245-4bac-a177-c0b80011975e'));
-        expect(state).toHaveProperty('id', '788b4d96-2245-4bac-a177-c0b80011975e');
-        expect(state).toHaveProperty('active', false);
-        expect(state).toHaveProperty('guesses', []);
-        expect(state).toHaveProperty('number', 82);
-        expect(state).toHaveProperty('timestamp');
-        expect(state).toHaveProperty('winner');
+        const expectedState = {
+            id: state.id,
+            active: false,
+            guesses: [],
+            number: state.number,
+            winner: false,
+            timestamp: state.timestamp
+        };
+        expect(state).toMatchObject(expectedState);
+        expect(state.active).toBe(false);
+        expect(state.guesses).toEqual([]);
+        expect(state.winner).toBe(false);
+        expect(state.timestamp).toBeInstanceOf(Date);
     });
 
     it('Should add a guess (didnt win)'), () => {
@@ -104,12 +134,21 @@ describe('Game reducer', () => {
             82,
             45
         ));
-        expect(state).toHaveProperty('id', '788b4d96-2245-4bac-a177-c0b80011975e');
-        expect(state).toHaveProperty('active', true);
-        expect(state).toHaveProperty('guesses', [44, 45]);
-        expect(state).toHaveProperty('number', 82);
-        expect(state).toHaveProperty('timestamp');
-        expect(state).toHaveProperty('winner', false);
+        const expectedState = {
+            id: state.id,
+            active: false,
+            guesses: [44,45],
+            number: state.number,
+            winner: false,
+            timestamp: state.timestamp
+        };
+        expect(state).toMatchObject(expectedState);
+        expect(state.id).toBe('788b4d96-2245-4bac-a177-c0b80011975e');
+        expect(state.active).toBe(true);
+        expect(state.guesses).toEqual([44,45]);
+        expect(state.number).toBeLessThanOrEqual(max);
+        expect(state.winner).toBe(false);
+        expect(state.timestamp).toBeInstanceOf(Date);
     };
     it('Should add a guess (won)'), () => {
         let state = {
@@ -130,11 +169,20 @@ describe('Game reducer', () => {
             82,
             82
         ));
-        expect(state).toHaveProperty('id', '788b4d96-2245-4bac-a177-c0b80011975e');
-        expect(state).toHaveProperty('active', true);
-        expect(state).toHaveProperty('guesses', [44, 82]);
-        expect(state).toHaveProperty('number', 82);
-        expect(state).toHaveProperty('timestamp');
-        expect(state).toHaveProperty('winner', true);
+        const expectedState = {
+            id: state.id,
+            active: false,
+            guesses: [44,82],
+            number: state.number,
+            winner: true,
+            timestamp: state.timestamp
+        };
+        expect(state).toMatchObject(expectedState);
+        expect(state.id).toBe('788b4d96-2245-4bac-a177-c0b80011975e');
+        expect(state.active).toBe(true);
+        expect(state.guesses).toEqual([44,82]);
+        expect(state.number).toBeLessThanOrEqual(max);
+        expect(state.winner).toBe(true);
+        expect(state.timestamp).toBeInstanceOf(Date);
     };
 });
