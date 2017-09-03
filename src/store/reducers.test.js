@@ -132,7 +132,7 @@ describe('Game reducer', () => {
             });
     });
 
-    it('Should add a guess (didnt win)'), () => {
+    it('Should add a guess (didnt win)', () => {
         const state = {
             id: 'ABC',
             active: true,
@@ -144,8 +144,8 @@ describe('Game reducer', () => {
         const action = {
             type: C.ADD_GUESS,
             id: 'ABC',
-            number: 82,
-            guess: 44
+            guess: 44,
+            winner: false
         };
         deepFreeze(state);
         deepFreeze(action);
@@ -158,8 +158,8 @@ describe('Game reducer', () => {
                 winner: false,
                 timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
             });
-    };
-    it('Should add a guess (won)'), () => {
+    });
+    it('Should add a guess (won)', () => {
         const state = {
             id: 'ABC',
             active: true,
@@ -171,8 +171,8 @@ describe('Game reducer', () => {
         const action = {
             type: C.ADD_GUESS,
             id: 'ABC',
-            number: 82,
-            guess: 82
+            guess: 82,
+            winner: true
         };
         deepFreeze(state);
         deepFreeze(action);
@@ -185,5 +185,5 @@ describe('Game reducer', () => {
                 winner: true,
                 timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
             });
-    };
+    });
 });

@@ -15,7 +15,6 @@ const saver = store => next => action => {
     let result = next(action);
     localStorage['redux-store'] = JSON.stringify(store.getState());
     return result;
-
 };
 const store = createStore(
     combineReducers({ username, games, min, max }),
