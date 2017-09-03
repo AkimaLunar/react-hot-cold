@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze';
 import {
     username,
     game,
@@ -21,39 +22,46 @@ import initialState from './initialState';
 
 describe('Username reducer', () => {
     it('Should set username', () => {
-        let state = 'test-start';
-        state = username(state, setUsername('test-mid'));
-        state = username(state, setUsername('test-result'));
-        expect(state).toEqual('test-result');
+        const state = 'test-start';
+        const action = setUsername('test-result');
+
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(username(state, action)).toEqual('test-result');
     });
 });
 
 describe('Min reducer', () => {
     it('Should set min', () => {
-        let state = 20;
-        state = min(state, setMin(10));
-        state = min(state, setMin(0));
-        expect(state).toEqual(0);
+        const state = 20;
+        const action = setMin(0);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(min(state,action)).toEqual(0);
     });
 });
 describe('Max reducer', () => {
     it('Should set max', () => {
-        let state = 30;
-        state = max(state, setMax(10));
-        state = max(state, setMax(100));
-        expect(state).toEqual(100);
+        const state = 20;
+        const action = setMin(0);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(min(state,action)).toEqual(0);
     });
 });
 
 describe('Games reducer', () => {
     it('Should create a new game (empty)', () => {
-        let state = [];
         const { max } = initialState;
-        state = games(state, newGame(max));
-        expect(state).toHaveLength(1);
+        const state = [];
+        const action = newGame(max);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(games(state, action)).toHaveLength(1);
     });
-
+    
     it('Should create a new game ', () => {
+        const { max } = initialState;
         const game = {
             id: '788b4d96-2245-4bac-a177-c0b80011975e',
             active: false,
@@ -62,127 +70,120 @@ describe('Games reducer', () => {
             winner: false,
             timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
         };
-        let state = [game];
-        const { max } = initialState;
-        state = games(state, newGame(max));
-        expect(state).toHaveLength(2);
+        const state = [game];
+        const action = newGame(max);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(games(state, action)).toHaveLength(2);
     });
 });
 
 describe('Game reducer', () => {
     it('Should create a new game', () => {
-        let state = { };
         const { max } = initialState;
-        state = game(state, newGame(max));
-        const expectedState = {
-            id: state.id,
-            active: true,
+        const state = { };
+        const action = {
+            type: C.NEW_GAME,
+            id: 'ABC',
+            active: false,
             guesses: [],
-            number: state.number,
+            number: 44,
             winner: false,
-            timestamp: state.timestamp
+            timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
         };
-        expect(state).toMatchObject(expectedState);
-        expect(state.active).toBe(true);
-        expect(state.guesses).toEqual([]);
-        expect(state.number).toBeLessThanOrEqual(max);
-        expect(state.winner).toBe(false);
-        expect(state.timestamp).toBeInstanceOf(Date);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(game(state, action))
+            .toEqual({
+                id: 'ABC',
+                active: false,
+                guesses: [],
+                number: 44,
+                winner: false,
+                timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
+            });
     });
 
     it('Should save a game', () => {
-        let state = {
-            id: '788b4d96-2245-4bac-a177-c0b80011975e',
+        const state = {
+            id: 'ABC',
             active: true,
             guesses: [],
             number: 82,
             winner: false,
             timestamp: '2017-08-28T01:43:21.059Z'
         };
-        state = game(state, saveGame('788b4d96-2245-4bac-a177-c0b80011975e'));
-        const expectedState = {
-            id: state.id,
+        const action = {
+            type: C.SAVE_GAME,
+            id: 'ABC',
             active: false,
-            guesses: [],
-            number: state.number,
-            winner: false,
-            timestamp: state.timestamp
+            timestamp: '2017-08-28T01:43:21.059Z'
         };
-        expect(state).toMatchObject(expectedState);
-        expect(state.active).toBe(false);
-        expect(state.guesses).toEqual([]);
-        expect(state.winner).toBe(false);
-        expect(state.timestamp).toBeInstanceOf(Date);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(game(state, action))
+            .toEqual({
+                id: 'ABC',
+                active: false,
+                guesses: [],
+                number: 82,
+                winner: false,
+                timestamp: '2017-08-28T01:43:21.059Z'
+            });
     });
 
     it('Should add a guess (didnt win)'), () => {
-        let state = {
-            id: '788b4d96-2245-4bac-a177-c0b80011975e',
+        const state = {
+            id: 'ABC',
             active: true,
-            guesses: [],
+            guesses: [34],
             number: 82,
             winner: false,
             timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
         };
-        state = game(state, addGuess(
-            '788b4d96-2245-4bac-a177-c0b80011975e',
-            82,
-            44
-        ));
-        state = game(state, addGuess(
-            '788b4d96-2245-4bac-a177-c0b80011975e',
-            82,
-            45
-        ));
-        const expectedState = {
-            id: state.id,
-            active: false,
-            guesses: [44,45],
-            number: state.number,
-            winner: false,
-            timestamp: state.timestamp
+        const action = {
+            type: C.ADD_GUESS,
+            id: 'ABC',
+            number: 82,
+            guess: 44
         };
-        expect(state).toMatchObject(expectedState);
-        expect(state.id).toBe('788b4d96-2245-4bac-a177-c0b80011975e');
-        expect(state.active).toBe(true);
-        expect(state.guesses).toEqual([44,45]);
-        expect(state.number).toBeLessThanOrEqual(max);
-        expect(state.winner).toBe(false);
-        expect(state.timestamp).toBeInstanceOf(Date);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(game(state, action))
+            .toEqual({
+                id: 'ABC',
+                active: true,
+                guesses: [34, 44],
+                number: 82,
+                winner: false,
+                timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
+            });
     };
     it('Should add a guess (won)'), () => {
-        let state = {
-            id: '788b4d96-2245-4bac-a177-c0b80011975e',
+        const state = {
+            id: 'ABC',
             active: true,
-            guesses: [],
+            guesses: [34],
             number: 82,
             winner: false,
             timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
         };
-        state = game(state, addGuess(
-            '788b4d96-2245-4bac-a177-c0b80011975e',
-            82,
-            44
-        ));
-        state = game(state, addGuess(
-            '788b4d96-2245-4bac-a177-c0b80011975e',
-            82,
-            82
-        ));
-        const expectedState = {
-            id: state.id,
-            active: false,
-            guesses: [44,82],
-            number: state.number,
-            winner: true,
-            timestamp: state.timestamp
+        const action = {
+            type: C.ADD_GUESS,
+            id: 'ABC',
+            number: 82,
+            guess: 82
         };
-        expect(state).toMatchObject(expectedState);
-        expect(state.id).toBe('788b4d96-2245-4bac-a177-c0b80011975e');
-        expect(state.active).toBe(true);
-        expect(state.guesses).toEqual([44,82]);
-        expect(state.number).toBeLessThanOrEqual(max);
-        expect(state.winner).toBe(true);
-        expect(state.timestamp).toBeInstanceOf(Date);
+        deepFreeze(state);
+        deepFreeze(action);
+        expect(game(state, action))
+            .toEqual({
+                id: 'ABC',
+                active: true,
+                guesses: [34, 82],
+                number: 82,
+                winner: true,
+                timestamp: 'Sat Aug 26 2017 15:46:57 GMT-0700 (Pacific Daylight Time)'
+            });
     };
 });
